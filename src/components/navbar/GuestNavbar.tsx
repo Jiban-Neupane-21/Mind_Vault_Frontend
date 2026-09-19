@@ -8,7 +8,6 @@ import {
   Box,
   Container,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import ThemeToggle from "@/components/common/ThemeToggle";
 
 export const GuestNavbar: React.FC = () => {
@@ -36,9 +35,21 @@ export const GuestNavbar: React.FC = () => {
               gap: 1,
             }}
           >
-            <LockOutlinedIcon color="primary" />
-            <Typography variant="h6" sx={{ fontWeight: 700 }}>
-              Mind Vault
+            <Typography
+              variant="h6"
+              sx={{
+                fontWeight: 700,
+                borderRadius: 50,
+                border: 2,
+                color: "#8B0000",
+              }}
+            >
+              <img
+                src="/logo/Logo.png"
+                alt="Think Box"
+                width={50}
+                height={50}
+              />
             </Typography>
           </Box>
 

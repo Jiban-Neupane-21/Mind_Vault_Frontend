@@ -8,6 +8,8 @@ import GuestHomePage from "./pages/GuestHomePage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import GuestLayout from "./layouts/GuestLayout";
 import UnauthorizedPage from "./pages/UnauthorizePaged";
+import UserLayout from "./layouts/UserLayout";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -26,7 +28,9 @@ export default function App() {
 
         {/* Protected layout route */}
         <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route element={<UserLayout />}>
+            <Route path="/dashboard" element={<DashboardPage />} />
+          </Route>
         </Route>
 
         {/*  Admin Only */}
