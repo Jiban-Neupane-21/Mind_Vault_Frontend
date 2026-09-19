@@ -6,14 +6,17 @@ import DashboardPage from "@/pages/DashboardPage";
 import PublicRoute from "./routes/PublicRoutes";
 import GuestHomePage from "./pages/GuestHomePage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
+import GuestLayout from "./layouts/GuestLayout";
 import UnauthorizedPage from "./pages/UnauthorizePaged";
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* 1. Guest / Public pages (no login required) */}
-        <Route path="/" element={<GuestHomePage />} />
         <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route element={<GuestLayout />}>
+          <Route path="/" element={<GuestHomePage />} />
+        </Route>
 
         {/* Public route */}
         <Route element={<PublicRoute />}>
