@@ -1,16 +1,39 @@
-import { useEffect } from "react";
-import { api } from "@/api/axiosClient";
-
-
-
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import ProtectedRoute from "@/routes/ProtectedRoutes";
+import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "./pages/RegisterationPage";
+import DashboardPage from "@/pages/DashboardPage";
+import PublicRoute from "./routes/PublicRoutes";
+import GuestHomePage from "./pages/GuestHomePage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import UnauthorizedPage from "./pages/UnauthorizePaged";
 export default function App() {
-  useEffect(() => {
-    console.log("Active API Base URL:", import.meta.env.VITE_API_BASE_URL);
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* 1. Guest / Public pages (no login required) */}
+        <Route path="/" element={<GuestHomePage />} />
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
-    api.get("/health")
-      .then((res) => console.log("Health check result:", res.data))
-      .catch((err) => console.error("API call failed:", err));
-  }, []);
+        {/* Public route */}
+        <Route element={<PublicRoute />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
 
-  return <div className="p-6 font-semibold">Mind Vault App</div>;
+        {/* Protected layout route */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+        </Route>
+
+        {/*  Admin Only */}
+        <Route element={<ProtectedRoute allowedRoles={["Admin"]} />}>
+          <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+        </Route>
+
+        {/* Fallback redirect */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
