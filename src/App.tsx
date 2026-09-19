@@ -9,6 +9,7 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import GuestLayout from "./layouts/GuestLayout";
 import UnauthorizedPage from "./pages/UnauthorizePaged";
 import UserLayout from "./layouts/UserLayout";
+import AdminLayout from "./layouts/AdminLayout";
 
 export default function App() {
   return (
@@ -35,11 +36,13 @@ export default function App() {
 
         {/*  Admin Only */}
         <Route element={<ProtectedRoute allowedRoles={["Admin"]} />}>
-          <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+          <Route element={<AdminLayout />}>
+            <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+          </Route>
         </Route>
 
         {/* Fallback redirect */}
-        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
